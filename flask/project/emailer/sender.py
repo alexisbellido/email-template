@@ -3,8 +3,6 @@ from flask import current_app
 from flask import request, render_template_string
 from flask import abort, jsonify
 import sendgrid
-# import json
-
 
 bp = Blueprint("sender", __name__, url_prefix="/sender")
 
@@ -49,43 +47,4 @@ def process():
             "sendgrid_status_code": sg_response.status_code
         }
 
-
-# @app.route('/subscribe/<topic>', methods=['POST'])
-# def subscribe(topic):
-#     topic = escape(topic)
-#     if request.method == 'POST':
-#         json_data = request.get_json()
-#         r = get_connection()
-#         p = r.pubsub()
-#         p.subscribe(topic)
-#         key = f'urls_{topic}'
-#         subscribed_urls = r.lrange(key, 0, -1)
-#         url = json_data['url']
-#         if url not in subscribed_urls:
-#             r.rpush(key, url)
-#             requests.post(
-#                 url,
-#                 json = json_data
-#             )
-# @app.route('/<url>', methods=['GET', 'POST'])
-# def event(url):
-#     url = escape(url)
-#     key = get_url_hash(url)
-#     r = get_connection()
-#     if request.method == 'POST':
-#         json_data = request.get_json()
-#         serialized_data = json.dumps(json_data)
-#         r.set(key, serialized_data)
-#     elif request.method == 'GET':
-#         serialized_data = r.get(key)
-#         if serialized_data:
-#             json_data = json.loads(serialized_data)
-#             topic = json_data.pop('topic')
-#         else:
-#             json_data = {}
-#     return {
-#         'key': key,
-#         'topic': topic,
-#         'data': json_data,
-#     }
 
