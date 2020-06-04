@@ -20,7 +20,7 @@ def get_connection():
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World 2!'
+    return 'Hello, World 3!'
 
 @app.route('/subscribe/<topic>', methods=['POST'])
 def subscribe(topic):
@@ -71,24 +71,24 @@ def publish(topic):
         }
         return result
 
-# @app.route('/<url>', methods=['GET', 'POST'])
-# def event(url):
-#     url = escape(url)
-#     key = get_url_hash(url)
-#     r = get_connection()
-#     if request.method == 'POST':
-#         json_data = request.get_json()
-#         serialized_data = json.dumps(json_data)
-#         r.set(key, serialized_data)
-#     elif request.method == 'GET':
-#         serialized_data = r.get(key)
-#         if serialized_data:
-#             json_data = json.loads(serialized_data)
-#             topic = json_data.pop('topic')
-#         else:
-#             json_data = {}
-#     return {
-#         'key': key,
-#         'topic': topic,
-#         'data': json_data,
-#     }
+@app.route('/<url>', methods=['GET', 'POST'])
+def event(url):
+    url = escape(url)
+    key = get_url_hash(url)
+    r = get_connection()
+    if request.method == 'POST':
+        json_data = request.get_json()
+        serialized_data = json.dumps(json_data)
+        r.set(key, serialized_data)
+    elif request.method == 'GET':
+        serialized_data = r.get(key)
+        if serialized_data:
+            json_data = json.loads(serialized_data)
+            topic = json_data.pop('topic')
+        else:
+            json_data = {}
+    return {
+        'key': key,
+        'topic': topic,
+        'data': json_data,
+    }

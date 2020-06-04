@@ -3,17 +3,20 @@ version: "3.7"
 services:
   app:
     image: zinibu/python:3.7.6
-    # build:
-    #   context: ./flask
     command: development
     ports:
       - "8000:8000"
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_RUN_HOST=0.0.0.0
+      - FLASK_RUN_PORT=8000
+      - REDIS_HOST=0.0.0.0
+      - REDIS_PORT=6379
     volumes:
       # bind mount for development
       - type: bind
         source: ./flask/project
         target: /root/project
-
     depends_on:
       - redis
   redis:
