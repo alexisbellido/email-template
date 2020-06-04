@@ -1,1 +1,1 @@
-SENDGRID_VALUE = 'a-test-value-for-sendgrid'
+SENDGRID_API_KEY = 'replace-with-your-sendgrid-api-key'

@@ -1,7 +1,5 @@
 from flask import Flask
 
-from flask import current_app # TODO try in other modules maybe not needed here
-
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
 
@@ -10,12 +8,7 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
 
-    # TODO views may come from different modules using pure views or blueprints
-    @app.route('/')
-    def hello():
-        print('=== app.instance_path', app.instance_path)
-        print('SENDGRID_VALUE', app.config['SENDGRID_VALUE'])
-        print('SENDGRID_VALUE from current_app', current_app.config['SENDGRID_VALUE'])
-        return 'Hello, World 2 - ' + app.instance_path
+    from emailer import sender
+    app.register_blueprint(sender.bp)
 
     return app
