@@ -1,5 +1,3 @@
-import os
-
 from flask import Flask
 
 from flask import current_app # try in other modules

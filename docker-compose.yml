@@ -7,7 +7,6 @@ services:
     ports:
       - "8000:8000"
     environment:
-      # - FLASK_APP=app.py
       - FLASK_APP=emailer
       - FLASK_RUN_HOST=0.0.0.0
       - FLASK_RUN_PORT=8000
