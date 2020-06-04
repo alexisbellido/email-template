@@ -81,3 +81,12 @@ Once the containers are running you can ssh into any of them.
 
     $ docker exec -it email-template_app_1 bash
     $ docker exec -it email-template_redis_1 bash
+
+
+TODO
+---------------------------------------------
+
+- index in Flask to show initial template or just use html from React app?
+- Don't think I need Redis. Remove all references.
+- Remove old and unused code.
+
