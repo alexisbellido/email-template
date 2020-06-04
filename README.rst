@@ -41,6 +41,16 @@ I also included a few basic unit tests.
 
 This is just a proof of concept. It doesn't consider edge cases and has incomplete test coverage.
 
+Create instance directory and initial configuration
+----------------------------------------------------------
+
+.. code-block:: bash
+
+    $ cd flask/project
+    $ mkdir instance
+    $ copy config-sample.cfg instance/config.cfg
+
+
 Docker notes
 ---------------------------------------------
 
