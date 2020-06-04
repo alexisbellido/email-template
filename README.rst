@@ -48,7 +48,7 @@ Create instance directory and initial configuration
 
     $ cd flask/project
     $ mkdir instance
-    $ copy config-sample.cfg instance/config.cfg
+    $ copy config-sample.py instance/config.py
 
 
 Docker notes
