@@ -69,5 +69,5 @@ Once the containers are running you can ssh into any of them.
 
 .. code-block:: bash
 
-    $ docker exec -it pubsub_app_1 bash
-    $ docker exec -it pubsub_redis_1 bash
+    $ docker exec -it email-template_app_1 bash
+    $ docker exec -it email-template_redis_1 bash
