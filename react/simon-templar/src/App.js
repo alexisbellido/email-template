@@ -1,13 +1,24 @@
-import React from 'react';
+// import React from 'react';
+import React, { useState } from 'react';
+
 import './App.css';
 
-import TemplateBuilder from './components/TemplateBuilder';
+import Builder from './components/Builder';
 import Previewer from './components/Previewer';
 
 const App = () => {
+
+  const [count, setCount] = useState(0);
+
+  const handleButton = () => {
+    setCount(count + 3);
+  };
+
   return (
     <div className="App">
-      <TemplateBuilder />
+      <h1>Simon Templar</h1>
+      <p>You clicked {count} times</p>
+      <Builder handleButton={handleButton} />
       <Previewer />
     </div>
   );

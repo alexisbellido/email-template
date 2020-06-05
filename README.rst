@@ -94,7 +94,19 @@ Once the containers are running you can ssh into any of them.
 TODO
 ---------------------------------------------
 
-- use host to develop React but docker compose at the end to run together with backend
-- index in Flask to show initial template or just use html from React app?
+- add and remove input fields to be used in template, check idea of todo list
 - Remove old and unused code.
+- deploy on thefelineuniverse.com and test
+- do I preview with a button or just on change from fields and input fields?
+- what happens with the template when I delete a field on react app? maybe reset field to empty or use default empty for non-existing fields
+- check empty fields with flask too
+- push backend image to docker hub so I can just pull it
+- write installation instructions including docker pull for backend and frontend and then docker exec bash and npm install for frontend before docker-compose up
+
+Notes
+---------------------------------------------
+
+As this a very simple application I haven't spent much time building a more reusable CSS structure and I'm just importing a CSS file for each React component. For a bigger application I'd a more manageable approach.
+
+
 

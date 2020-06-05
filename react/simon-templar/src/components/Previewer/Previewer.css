@@ -1,5 +1,6 @@
 .previewer {
     font-family: Arial, Verdana, Geneva, Tahoma, sans-serif;
+    color:#281d4c;
 }
 
 .previewer button {
@@ -23,4 +24,14 @@
     width: 600px;
     padding: 20px;
     margin: 20px auto;
+}
+
+.previewer .notification {
+    font-weight: bold;
+    display: block;
+    text-align: center;
+}
+
+.previewer .hidden {
+    display:  none;
 }

@@ -1,9 +1,18 @@
 import React from 'react';
-import './TemplateBuilder.css';
+import './Builder.css';
 
-const TemplateBuilder = () => {
+const Builder = (props) => {
+
+    const handleButton = (e) => {
+        e.preventDefault();
+        props.handleButton();
+    };
+    
     return (
-        <form className="template-builder">
+        <form className="builder">
+            <div>
+                <button onClick={(e) => handleButton(e)}>Test Button with handler</button>
+            </div>
             <div>
                 <label>Sender</label>
                 <input type="text" name="sender" />
@@ -14,7 +23,7 @@ const TemplateBuilder = () => {
             </div>
             <div>
                 <label>Template</label>
-                <textarea value=""  onChange={() => false} />
+                <textarea value="" onChange={() => false} />
             </div>
             <div>
                 <button>Send Email</button>
@@ -24,4 +33,4 @@ const TemplateBuilder = () => {
     );
 }
 
-export default TemplateBuilder;
+export default Builder;
