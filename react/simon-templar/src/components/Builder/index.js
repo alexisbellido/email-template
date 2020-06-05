@@ -3,6 +3,11 @@ import './Builder.css';
 
 const Builder = (props) => {
 
+    const [sender, setSender] = useState('');
+    const [recipient, setRecipient] = useState('');
+    const [template, setTemplate] = useState('');
+
+    // TODO make additional fields dynamic and in their own component
     const [color, setColor] = useState('');
     const [planet, setPlanet] = useState('');
 
@@ -10,20 +15,20 @@ const Builder = (props) => {
         e.preventDefault();
         props.handleButton();
     };
-    
+
     return (
         <form className="builder">
             <div>
                 <label>Sender</label>
-                <input type="text" name="sender" />
+                <input type="text" name="sender" value={sender} onChange={e => setSender(e.target.value)}/>
             </div>
             <div>
                 <label>Recipient</label>
-                <input type="text" name="recipient" />
+                <input type="text" name="recipient" value={recipient} onChange={e => setRecipient(e.target.value)} />
             </div>
             <div>
                 <label>Template</label>
-                <textarea value="" onChange={() => false} />
+                <textarea name="template" value={template} onChange={e => setTemplate(e.target.value)}/>
             </div>
             <h2>Fields</h2>
             <div>
