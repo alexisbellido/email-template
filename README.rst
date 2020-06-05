@@ -94,7 +94,7 @@ Once the containers are running you can ssh into any of them.
 TODO
 ---------------------------------------------
 
+- use host to develop React but docker compose at the end to run together with backend
 - index in Flask to show initial template or just use html from React app?
-- Don't think I need Redis. Remove all references.
 - Remove old and unused code.
 
