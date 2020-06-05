@@ -23,6 +23,10 @@ const Builder = (props) => {
         console.log(`color ${color}`)
     };
 
+    const handleTemplate = e => {
+        setTemplate(e.target.value);
+    }
+
     return (
         <form className="builder">
             <div>
@@ -35,7 +39,7 @@ const Builder = (props) => {
             </div>
             <div>
                 <label>Template</label>
-                <textarea name="template" value={template} onChange={e => setTemplate(e.target.value)}/>
+                <textarea name="template" value={template} onChange={handleTemplate}/>
             </div>
             <h2>Fields</h2>
             <div>
