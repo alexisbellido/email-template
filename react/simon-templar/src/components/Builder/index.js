@@ -11,9 +11,16 @@ const Builder = (props) => {
     const [color, setColor] = useState('');
     const [planet, setPlanet] = useState('');
 
-    const handleButton = (e) => {
+    const handleButton = e => {
         e.preventDefault();
         props.handleButton();
+    };
+
+    const sendEmail = e => {
+        e.preventDefault();
+        console.log('sending email');
+        console.log(`sender ${sender}`)
+        console.log(`color ${color}`)
     };
 
     return (
@@ -40,10 +47,10 @@ const Builder = (props) => {
                 <input type="text" name="planet" value={planet}  onChange={e => setPlanet(e.target.value)} />
             </div>
             <div>
-                <button onClick={e => handleButton(e)}>Test Button with handler</button>
+                <button onClick={handleButton}>Test Button</button>
             </div>
             <div>
-                <button>Send Email</button>
+                <button onClick={sendEmail}>Send Email</button>
                 <p className="hidden notification">Your message was sent</p>
             </div>
         </form>
