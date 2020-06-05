@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   backend:
-    image: zinibu/python:3.7.6
+    image: alexisbellido/python:3.7.6
     command: development
     ports:
       - "8000:8000"
