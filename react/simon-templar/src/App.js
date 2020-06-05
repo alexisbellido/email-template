@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 import './App.css';
 
@@ -47,6 +48,7 @@ const App = () => {
     console.log(parameters);
     console.log('fields');
     console.log(fields);
+
     // TODO import Axios and post JSON like this to http://localhost:8000/sender/
     // {
     //   "template": "Hello, I like the color {{color}} and I'm from planet {{planet}}. My favorite animal is {{animal}}",
@@ -57,6 +59,21 @@ const App = () => {
     //     "planet": "pluto"
     //   }
     // }
+
+    console.log(axios);
+    // let url = `//example.com:8000/sender/`;
+    // let payload = {
+    //   template: template,
+    // };
+    // axios
+    //   .post(url, payload, {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   })
+    //   .catch(error => {
+    //     console.log("sendEmail", error);
+    //   });
   };
 
   return (
