@@ -1,57 +1,39 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Builder.css';
 
 const Builder = (props) => {
 
-    const [sender, setSender] = useState('');
-    const [recipient, setRecipient] = useState('');
-    const [template, setTemplate] = useState('');
-
-    // TODO make additional fields dynamic and in their own component
-    const [color, setColor] = useState('');
-    const [planet, setPlanet] = useState('');
-
-    const handleButton = e => {
-        e.preventDefault();
-        props.handleButton();
-    };
-
     const sendEmail = e => {
         e.preventDefault();
-        console.log('sending email');
-        console.log(`sender ${sender}`)
-        console.log(`color ${color}`)
+        props.sendEmail();
     };
 
-    const handleTemplate = e => {
-        setTemplate(e.target.value);
+    const handleChange = e => {
+        props.handleChange(e);
     }
 
     return (
         <form className="builder">
             <div>
                 <label>Sender</label>
-                <input type="text" name="sender" value={sender} onChange={e => setSender(e.target.value)}/>
+                <input type="text" name="sender" value={props.parameters.sender} onChange={handleChange} />
             </div>
             <div>
                 <label>Recipient</label>
-                <input type="text" name="recipient" value={recipient} onChange={e => setRecipient(e.target.value)} />
+                <input type="text" name="recipient" value={props.parameters.recipient} onChange={handleChange} />
             </div>
             <div>
                 <label>Template</label>
-                <textarea name="template" value={template} onChange={handleTemplate}/>
+                <textarea name="template" value={props.parameters.template} onChange={handleChange}/>
             </div>
             <h2>Fields</h2>
             <div>
                 <label>Color</label>
-                <input type="text" name="color" value={color} onChange={e => setColor(e.target.value)} />
+                <input type="text" name="field-color" value={props.fields.color} onChange={handleChange} />
             </div>
             <div>
                 <label>Planet</label>
-                <input type="text" name="planet" value={planet}  onChange={e => setPlanet(e.target.value)} />
-            </div>
-            <div>
-                <button onClick={handleButton}>Test Button</button>
+                <input type="text" name="field-planet" value={props.fields.planet}  onChange={handleChange} />
             </div>
             <div>
                 <button onClick={sendEmail}>Send Email</button>
