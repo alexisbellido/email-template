@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Builder.css';
 
 const Builder = (props) => {
+
+    const [color, setColor] = useState('');
+    const [planet, setPlanet] = useState('');
 
     const handleButton = (e) => {
         e.preventDefault();
@@ -25,14 +28,14 @@ const Builder = (props) => {
             <h2>Fields</h2>
             <div>
                 <label>Color</label>
-                <input type="text" name="color" />
+                <input type="text" name="color" value={color} onChange={e => setColor(e.target.value)} />
             </div>
             <div>
                 <label>Planet</label>
-                <input type="text" name="planet" />
+                <input type="text" name="planet" value={planet}  onChange={e => setPlanet(e.target.value)} />
             </div>
             <div>
-                <button onClick={(e) => handleButton(e)}>Test Button with handler</button>
+                <button onClick={e => handleButton(e)}>Test Button with handler</button>
             </div>
             <div>
                 <button>Send Email</button>
