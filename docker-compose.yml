@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-  app:
+  backend:
     image: zinibu/python:3.7.6
     command: development
     ports:
@@ -17,9 +17,21 @@ services:
       - type: bind
         source: ./flask/project
         target: /root/project
-    depends_on:
-      - redis
-  redis:
-    image: redis:5.0.3
-    ports:
-      - "6379:6379"
+  # TODO enable when done with development
+  # Docker on Mac too slow
+  # frontend:
+  #   image: node:14.4.0-stretch
+  #   command: npm start
+  #   ports:
+  #     - "3000:3000"
+  #   stdin_open: true
+  #   working_dir: /root/simon-templar
+  #   volumes:
+  #     # bind mount for development
+  #     - type: bind
+  #       source: ./react/simon-templar
+  #       target: /root/simon-templar
+  #     - type: bind
+  #       source: ./react/simon-templar/node_modules
+  #       target: /root/simon-templar/node_modules
+  #       consistency: cached

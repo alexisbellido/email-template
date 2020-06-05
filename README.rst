@@ -52,33 +52,43 @@ Create instance directory and initial configuration
 Docker notes
 ---------------------------------------------
 
-Launch and ssh into Flask container.
+Launch and ssh into the Flask container. This will be used as the backend service.
 
 .. code-block:: bash
 
     $ cd flask/project
     $ docker run -it --rm --mount type=bind,source=$PWD,target=/root/project zinibu/python:3.7.6 bash
 
-Launch and ssh via docker-entrypoint.sh.
+Launch and ssh into the Flask container via docker-entrypoint.sh.
 
 .. code-block:: bash
 
     $ cd flask/project
-    $ docker run -it --rm --mount type=bind,source=$PWD,target=/root/project -p 5000:5000 zinibu/python:3.7.6 -- /usr/local/bin/docker-entrypoint.sh bash
+    $ docker run -it --rm --mount type=bind,source=$PWD,target=/root/project -p 8000:8000 zinibu/python:3.7.6 -- /usr/local/bin/docker-entrypoint.sh bash
 
 Run Flask in development mode.
 
 .. code-block:: bash
 
     $ cd flask/project
-    $ docker run --rm --mount type=bind,source=$PWD,target=/root/project -p 5000:5000 zinibu/python:3.7.6 -- /usr/local/bin/docker-entrypoint.sh development
+    $ docker run --rm --mount type=bind,source=$PWD,target=/root/project -p 8000:8000 zinibu/python:3.7.6 -- /usr/local/bin/docker-entrypoint.sh development
+
+Launch and ssh into the NodeJS container. This will be used as the frontend service.
+
+.. code-block:: bash
+
+    $ cd react/simon-templar
+    $ docker run -it --rm --mount type=bind,source=$PWD,target=/root/simon-templar -w /root/simon-templar -p 3000:3000 node:14.4.0-stretch bash
+
+
+    $ docker run -it --rm --mount type=bind,source=$PWD,target=/root/simon-templar --mount type=bind,source=$PWD/node_modules,target=/root/simon-templar/node_modules,consistency=cached -w /root/simon-templar -p 3000:3000 node:14.4.0-stretch bash
 
 Once the containers are running you can ssh into any of them.
 
 .. code-block:: bash
 
-    $ docker exec -it email-template_app_1 bash
-    $ docker exec -it email-template_redis_1 bash
+    $ docker exec -it email-template_backend_1 bash
+    $ docker exec -it email-template_frontend_1 bash
 
 
 TODO
