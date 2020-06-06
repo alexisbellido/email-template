@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Handlebars from "handlebars";
 
 import './App.css';
 
@@ -15,6 +16,8 @@ const App = () => {
     recipient: ""
   });
 
+  const [renderedTemplate, setRenderedTemplate] = useState('');
+
   // initialize dynamic fields with an example
   const [dynamicFields, setDynamicFields] = useState([
     {
@@ -23,6 +26,23 @@ const App = () => {
       fieldValue: "red"
     }
   ]);
+
+  useEffect(() => {
+    preview();
+  });
+
+  const preview = () => {
+    let context = {};
+    dynamicFields.forEach(field => {
+        context[field.fieldName] = field.fieldValue;
+    });
+    try {
+      const template = Handlebars.compile(parameters.template);
+      setRenderedTemplate(template(context));
+    } catch(error) {
+      // don't render yet if there's a parsing error
+    }
+  };
 
   const addField = () => {
     // Add a field to array of dynamic fields.
@@ -63,7 +83,7 @@ const App = () => {
           return currentField;
         }
       })
-    )
+    );
   };
 
   const handleChange = (e) => {
@@ -112,24 +132,28 @@ const App = () => {
   return (
     <div className="app">
       <h1>Simon Templar</h1>
-      <ParametersBuilder
-        handleChange={handleChange}
-        parameters={parameters}
-      />
-      <FieldsBuilder
-        addField={addField}
-        removeField={removeField}
-        handleFieldChange={handleFieldChange}
-        dynamicFields={dynamicFields}
-      />
-      <Previewer
-        template={parameters.template}
-        dynamicFields={dynamicFields}
-      />
-      <div>
-        <button onClick={sendEmail}>Send Email</button>
-        <p className="hidden notification">Your message was sent</p>
-      </div>
+      <section className="content">
+        <ParametersBuilder
+          handleChange={handleChange}
+          parameters={parameters}
+        />
+        <FieldsBuilder
+          addField={addField}
+          removeField={removeField}
+          handleFieldChange={handleFieldChange}
+          dynamicFields={dynamicFields}
+        />
+        <div>
+          <button onClick={sendEmail}>Send Email</button>
+          <p className="hidden notification">Your message was sent</p>
+        </div>
+      </section>
+      <section className="preview">
+        <Previewer
+          preview={preview}
+          renderedTemplate={renderedTemplate}
+        />
+      </section>
     </div>
   );
 }

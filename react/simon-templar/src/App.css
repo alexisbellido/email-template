@@ -6,7 +6,7 @@
 
 .app h1 {
   text-align: left;
-  width: 520px;
+  width: auto;
   margin: 20px auto 40px auto;
   color: #d8276c;
   border-bottom: 2px solid #d8276c;

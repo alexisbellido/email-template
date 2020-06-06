@@ -122,13 +122,15 @@ As this a very simple application I haven't spent much time building a more reus
 
 As the templates are simple, just variable replacement, and Jinja and Handlebars use the same approach, {{variable}} placeholders, I am using Handlebars to run a preview on the frontend to avoid a call to the API.
 
+
 TODO
 ---------------------------------------------
 
-- start with fixed color and planet input fields, later turn them into fields that can be added and removed as individual components
-- add and remove input fields to be used in template, check idea of todo list
+- I've used a button to trigger a preview. I could may use an onChange event to keep track of changes in the template and fields and update the preview accordingly.
+
+
 - Remove old and unused code.
-- deploy on thefelineuniverse.com and test
+- deploy on thefelineuniverse.com and test? maybe not, probably a video with demo
 - do I preview with a button or just on change from fields and input fields?
 - what happens with the template when I delete a field on react app? maybe reset field to empty or use default empty for non-existing fields
 - check empty fields with flask too
