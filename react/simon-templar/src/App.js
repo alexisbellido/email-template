@@ -14,11 +14,46 @@ const App = () => {
     "planet": ""
   });
 
+  // TODO array for dynamic inputs
+  const [dynamicFields, setDynamicFields] = useState([
+    {
+      "id": "4",
+      "fieldName": "animal",
+      "fieldValue": "horse"
+    },
+    {
+      "id": "6",
+      "fieldName": "country",
+      "fieldValue": "uruguay"
+    }
+  ]);
+
   const [parameters, setParameters] = useState({
     template: "Change me",
     sender: "",
     recipient: ""
   });
+
+  const handleFieldChange = (field, e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    // Pass a function to setDynamicFields that will loop over the previous state
+    // of the dynamicFields array and determine which element to update based on ID.
+    setDynamicFields(prevDynamicFields =>
+      prevDynamicFields.map(currentField => {
+        // Use an if block instead of the ternary operator to make it clear that we are
+        // matching and updating a particular element in the array.
+        if (currentField.id === field.id) {
+          return {
+            ...currentField,
+            [name]: value
+          };
+        } else {
+          return currentField;
+        }
+      })
+    )
+  };
 
   const handleChange = (e) => {
     // Use setFields for input starting with "field-" and
@@ -76,9 +111,31 @@ const App = () => {
     //   });
   };
 
+  // TODO make dynamicFields a component
   return (
     <div className="App">
       <h1>Simon Templar</h1>
+      {dynamicFields.map(field => {
+        return (
+          <div key={field.id}>
+            <span>{field.id}</span>
+            <input
+              type="text"
+              value={field.fieldName}
+              name="fieldName"
+              placeholder="field name"
+              onChange={(e) => handleFieldChange(field, e)}
+            />
+            <input
+              type="text"
+              value={field.fieldValue}
+              name="fieldValue"
+              placeholder="field value"
+              onChange={(e) => handleFieldChange(field, e)}
+            />
+          </div>
+        );
+      })}
       <Builder
         handleChange={handleChange}
         sendEmail={sendEmail}

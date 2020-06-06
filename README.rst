@@ -116,6 +116,8 @@ Installation
 Notes
 ---------------------------------------------
 
+For demonstration purposes both Flask and React are running on development mode.
+
 As this a very simple application I haven't spent much time building a more reusable CSS structure and I'm just importing a CSS file for each React component. For a bigger application I'd a more manageable approach.
 
 TODO
