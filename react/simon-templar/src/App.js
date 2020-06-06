@@ -10,21 +10,21 @@ const App = () => {
 
   // TODO start with no fields
   const [fields, setFields] = useState({
-    "color": "",
-    "planet": ""
+    color: "",
+    planet: ""
   });
 
   // TODO array for dynamic inputs
   const [dynamicFields, setDynamicFields] = useState([
     {
-      "id": "4",
-      "fieldName": "animal",
-      "fieldValue": "horse"
+      id: "1",
+      fieldName: "animal",
+      fieldValue: "horse"
     },
     {
-      "id": "6",
-      "fieldName": "country",
-      "fieldValue": "uruguay"
+      id: "2",
+      fieldName: "country",
+      fieldValue: "uruguay"
     }
   ]);
 
@@ -33,6 +33,27 @@ const App = () => {
     sender: "",
     recipient: ""
   });
+
+  const addField = () => {
+    // Add a field to array of dynamic fields.
+    // Use milliseconds elapsed since the UNIX epoch to generate a unique ID.
+    // We could use another way of generating unique IDs but keeping it simple for this demonstration.
+    setDynamicFields(prevDynamicFields => [
+      ...prevDynamicFields,
+      {
+        id: Date.now(),
+        fieldName: "",
+        fieldValue: ""
+      }
+    ]);
+  };
+
+  const removeField = (field) => {
+    // Go over all the dynamic fields and filter out the one we need to remove.
+    setDynamicFields(prevDynamicFields =>
+      prevDynamicFields.filter(currentField => currentField.id !== field.id)
+    );
+  };
 
   const handleFieldChange = (field, e) => {
     const name = e.target.name;
@@ -115,6 +136,9 @@ const App = () => {
   return (
     <div className="App">
       <h1>Simon Templar</h1>
+
+      <h2>Dynamic Fields</h2>
+      <button onClick={addField}>Add field</button>
       {dynamicFields.map(field => {
         return (
           <div key={field.id}>
@@ -133,9 +157,11 @@ const App = () => {
               placeholder="field value"
               onChange={(e) => handleFieldChange(field, e)}
             />
+            <button onClick={() => removeField(field)}>x</button>
           </div>
         );
       })}
+      
       <Builder
         handleChange={handleChange}
         sendEmail={sendEmail}
