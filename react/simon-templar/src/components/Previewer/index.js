@@ -5,7 +5,7 @@ const Previewer = (props) => {
 
     return (
         <div className="previewer">
-            <h2>Preview</h2>
+            <h2>Preview Panel</h2>
             <textarea defaultValue={props.renderedTemplate} readOnly />
         </div>
     );

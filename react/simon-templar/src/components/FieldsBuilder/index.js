@@ -19,7 +19,7 @@ const FieldsBuilder = (props) => {
 
     return (
         <form className="fields-builder">
-            <h2>Dynamic Fields</h2>
+            <h2>Fields</h2>
             <div>
                 <button onClick={addField}>Add field</button>
             </div>

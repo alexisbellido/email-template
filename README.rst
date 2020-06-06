@@ -127,12 +127,9 @@ As the frontend and the backend run on different origins (React in port 3000 and
 TODO
 ---------------------------------------------
 
-- Remove old and unused code.
+- write backend tests
+- Remove old and unused code, including css and comments
 - deploy on thefelineuniverse.com and test? maybe not, probably a video with demo
-- do I preview with a button or just on change from fields and input fields?
-- what happens with the template when I delete a field on react app? maybe reset field to empty or use default empty for non-existing fields
-- check empty fields with flask too
-- push backend image to docker hub so I can just pull it
 - write installation instructions including  docker exec bash and npm install for frontend before docker-compose up
 
 

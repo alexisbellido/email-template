@@ -10,6 +10,7 @@ import Previewer from './components/Previewer';
 
 const App = () => {
 
+  // initialize template parameter with an example
   const [parameters, setParameters] = useState({
     template: "Hi {{contact_first_name}},\nGood news! You can get {{discount_rate}} off your next pair of shoes by using this discount code:\n{{discount_code}}\n\nEnjoy!\nSincerely,\nMarketer",
     sender: "",
@@ -19,7 +20,7 @@ const App = () => {
   const [renderedTemplate, setRenderedTemplate] = useState('');
   const [notifications, setNotifications] = useState([]);
 
-  // initialize dynamic fields with an example
+  // initialize dynamic fields with a few examples
   const [dynamicFields, setDynamicFields] = useState([
     {
       id: "1",
@@ -51,14 +52,13 @@ const App = () => {
       const template = Handlebars.compile(parameters.template);
       setRenderedTemplate(template(context));
     } catch(error) {
-      // don't render if there's a parsing error
+      // don't render if Handlebars reports a parsing error
     }
   };
 
   const addField = () => {
-    // Add a field to array of dynamic fields.
-    // Use milliseconds elapsed since the UNIX epoch to generate a unique ID.
-    // We could use another way of generating unique IDs but keeping it simple for this demonstration.
+    // Add a field to the array of dynamic fields.
+    // Use Date.now() to keep it simple and generate a unique ID.
     setDynamicFields(prevDynamicFields => [
       ...prevDynamicFields,
       {
@@ -70,7 +70,7 @@ const App = () => {
   };
 
   const removeField = (field) => {
-    // Go over all the dynamic fields and filter out the one we need to remove.
+    // Loop over all dynamic fields and filter out the one we want to remove.
     setDynamicFields(prevDynamicFields =>
       prevDynamicFields.filter(currentField => currentField.id !== field.id)
     );
@@ -84,7 +84,7 @@ const App = () => {
     setDynamicFields(prevDynamicFields =>
       prevDynamicFields.map(currentField => {
         // Use an if block instead of the ternary operator to make it clear that we are
-        // matching and updating a particular element in the array.
+        // matching and updating a particular element in the array of dynamic fields.
         if (currentField.id === field.id) {
           return {
             ...currentField,
@@ -105,29 +105,30 @@ const App = () => {
     });
   };
 
-  const validateEmail = email => {
+  const isValidEmail = email => {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
   }
 
-  const sendEmail = e => {
-    e.preventDefault();
+  const isValidPayload = () => {
     let notifications = [];
-    if (!validateEmail(parameters.sender)) {
+    if (!isValidEmail(parameters.sender)) {
       notifications.push("Please enter a valid sender email address.");
     }
-    if (!validateEmail(parameters.recipient)) {
+    if (!isValidEmail(parameters.recipient)) {
       notifications.push("Please enter a valid recipient email address.");
     }
     if (!parameters.template) {
       notifications.push("Template empty. Please add one.");
     }
-    if (notifications.length) {
-      // invalid parameters, notify
-      setNotifications(notifications);
-    } else {
-      // call API to send email
+    setNotifications(notifications);
+    return !notifications.length;
+  }
 
+  const sendEmail = e => {
+    e.preventDefault();
+    if (isValidPayload()) {
+      let notifications = [];
       let fields = {};
       dynamicFields.forEach(field => {
           fields[field.fieldName] = field.fieldValue;
@@ -140,40 +141,25 @@ const App = () => {
         fields
       };
       let url = `//localhost:8000/sender/`;
-      // console.log('payload', payload);
-      
       axios
         .post(url, payload)
         .then(response => {
-          console.log(response);
+          if (response.status === 200) {
+            notifications.push("Success! I've sent your message.");
+            setNotifications(notifications);
+          }
         })
         .catch(error => {
           console.log("There was a problem sending your email.", error);
         });
-
-        // axios
-        // .post(url, payload, {
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        // })
-        // .then(response => {
-        //   console.log(response);
-        // })
-        // .catch(error => {
-        //   console.log("There was a problem sending your email.", error);
-        // });
-
-      notifications.push("Success! I've sent your message.");
-      setNotifications(notifications);
     }
-
-
   };
 
   return (
     <div className="app">
       <h1>Simon Templar</h1>
+      <p>Enter the email addresses to use as the sender and the recipient; customize the template using <em>&#123;&#123;field&#125;&#125;</em> where you want to insert your fields; and add or remove fields and their corresponding values.</p>
+      <p>Verify the result on the preview panel to the right and once you are ready click <em>Send Email</em> at the bottom.</p>
       <section className="content">
         <ParametersBuilder
           handleChange={handleChange}
