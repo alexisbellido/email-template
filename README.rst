@@ -122,12 +122,10 @@ As this a very simple application I haven't spent much time building a more reus
 
 As the templates are simple, just variable replacement, and Jinja and Handlebars use the same approach, {{variable}} placeholders, I am using Handlebars to run a preview on the frontend to avoid a call to the API.
 
+As the frontend and the backend run on different origins (React in port 3000 and Flask in port 8000) I've used the Flask-CORS extension to allow all origins for the /sender/ API endpoint. On production I'd restrict this to work only with the origins we trust or. Clients that are not running from an allowed origin would need to write their own backend proxy and instruct their frontend applications to call our API from there.
 
 TODO
 ---------------------------------------------
-
-- I've used a button to trigger a preview. I could may use an onChange event to keep track of changes in the template and fields and update the preview accordingly.
-
 
 - Remove old and unused code.
 - deploy on thefelineuniverse.com and test? maybe not, probably a video with demo

@@ -2,6 +2,7 @@ from flask import Blueprint
 from flask import current_app
 from flask import request, render_template_string
 from flask import abort, jsonify
+from flask_cors import cross_origin
 import sendgrid
 
 bp = Blueprint("sender", __name__, url_prefix="/sender")
@@ -11,6 +12,7 @@ def missing_fields(e):
     return jsonify(error=str(e)), 400
 
 @bp.route('/', methods=['POST'])
+@cross_origin()
 def process():
     if request.method == 'POST':
         json_data = request.get_json()

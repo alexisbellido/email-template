@@ -11,7 +11,7 @@ import Previewer from './components/Previewer';
 const App = () => {
 
   const [parameters, setParameters] = useState({
-    template: "I like the color {{color}}",
+    template: "Hi {{contact_first_name}},\nGood news! You can get {{discount_rate}} off your next pair of shoes by using this discount code:\n{{discount_code}}\n\nEnjoy!\nSincerely,\nMarketer",
     sender: "",
     recipient: ""
   });
@@ -23,8 +23,18 @@ const App = () => {
   const [dynamicFields, setDynamicFields] = useState([
     {
       id: "1",
-      fieldName: "color",
-      fieldValue: "red"
+      fieldName: "contact_first_name",
+      fieldValue: "Simon"
+    },
+    {
+      id: "2",
+      fieldName: "discount_rate",
+      fieldValue: "15%"
+    },
+    {
+      id: "3",
+      fieldName: "discount_code",
+      fieldValue: "SHOES2020"
     }
   ]);
 
@@ -41,7 +51,7 @@ const App = () => {
       const template = Handlebars.compile(parameters.template);
       setRenderedTemplate(template(context));
     } catch(error) {
-      // don't render yet if there's a parsing error
+      // don't render if there's a parsing error
     }
   };
 
@@ -103,7 +113,6 @@ const App = () => {
   const sendEmail = e => {
     e.preventDefault();
     let notifications = [];
-    // TODO regex to validate emails
     if (!validateEmail(parameters.sender)) {
       notifications.push("Please enter a valid sender email address.");
     }
@@ -118,35 +127,48 @@ const App = () => {
       setNotifications(notifications);
     } else {
       // call API to send email
+
+      let fields = {};
+      dynamicFields.forEach(field => {
+          fields[field.fieldName] = field.fieldValue;
+      });
+      
+      const payload = {
+        sender: parameters.sender,
+        recipient: parameters.recipient,
+        template: parameters.template,
+        fields
+      };
+      let url = `//localhost:8000/sender/`;
+      // console.log('payload', payload);
+      
+      axios
+        .post(url, payload)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log("There was a problem sending your email.", error);
+        });
+
+        // axios
+        // .post(url, payload, {
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        // })
+        // .then(response => {
+        //   console.log(response);
+        // })
+        // .catch(error => {
+        //   console.log("There was a problem sending your email.", error);
+        // });
+
       notifications.push("Success! I've sent your message.");
       setNotifications(notifications);
     }
 
-    // TODO import Axios and post JSON like this to http://localhost:8000/sender/
-    // {
-    //   "template": "Hello, I like the color {{color}} and I'm from planet {{planet}}. My favorite animal is {{animal}}",
-    //   "sender": "from@example.com",
-    //   "recipient": "a@zinibu.com",
-    //   "fields": {
-    //     "color": "blue",
-    //     "planet": "pluto"
-    //   }
-    // }
 
-    // console.log(axios);
-    // let url = `//example.com:8000/sender/`;
-    // let payload = {
-    //   template: template,
-    // };
-    // axios
-    //   .post(url, payload, {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   })
-    //   .catch(error => {
-    //     console.log("sendEmail", error);
-    //   });
   };
 
   return (

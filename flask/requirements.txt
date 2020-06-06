@@ -1,3 +1,4 @@
 Flask==1.1.2
+flask-cors==3.0.8
 pytest==5.4.3
 sendgrid==6.3.1

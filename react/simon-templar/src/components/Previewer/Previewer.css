@@ -7,9 +7,11 @@
     margin-bottom: 20px;
 }
 
-.previewer .rendered-template {
-    width: 600px;
+.previewer textarea {
+    width: 90%;
     padding: 20px;
-    margin: 20px auto;
-    white-space: pre;
+    height: 400px;
+    border: 1px solid #e2e2cd;
+    background-color: #f3f3ed;
+    font-size: 16px;
 }
