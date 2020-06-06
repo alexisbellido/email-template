@@ -12,11 +12,11 @@ const ParametersBuilder = (props) => {
             <h2>Parameters</h2>
             <div>
                 <label>Sender</label>
-                <input type="text" name="sender" value={props.parameters.sender} onChange={handleChange} />
+                <input type="email" name="sender" placeholder="from@example.com" value={props.parameters.sender} onChange={handleChange} />
             </div>
             <div>
                 <label>Recipient</label>
-                <input type="text" name="recipient" value={props.parameters.recipient} onChange={handleChange} />
+                <input type="email" name="recipient" placeholder="to@example.com" value={props.parameters.recipient} onChange={handleChange} />
             </div>
             <div>
                 <label>Template</label>

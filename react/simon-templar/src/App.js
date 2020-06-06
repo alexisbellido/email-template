@@ -17,6 +17,7 @@ const App = () => {
   });
 
   const [renderedTemplate, setRenderedTemplate] = useState('');
+  const [notifications, setNotifications] = useState([]);
 
   // initialize dynamic fields with an example
   const [dynamicFields, setDynamicFields] = useState([
@@ -94,13 +95,32 @@ const App = () => {
     });
   };
 
+  const validateEmail = email => {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  }
+
   const sendEmail = e => {
     e.preventDefault();
-    console.log('sending email from App');
-    console.log('parameters');
-    console.log(parameters);
-    console.log('dynamicFields');
-    console.log(dynamicFields);
+    let notifications = [];
+    // TODO regex to validate emails
+    if (!validateEmail(parameters.sender)) {
+      notifications.push("Please enter a valid sender email address.");
+    }
+    if (!validateEmail(parameters.recipient)) {
+      notifications.push("Please enter a valid recipient email address.");
+    }
+    if (!parameters.template) {
+      notifications.push("Template empty. Please add one.");
+    }
+    if (notifications.length) {
+      // invalid parameters, notify
+      setNotifications(notifications);
+    } else {
+      // call API to send email
+      notifications.push("Success! I've sent your message.");
+      setNotifications(notifications);
+    }
 
     // TODO import Axios and post JSON like this to http://localhost:8000/sender/
     // {
@@ -113,7 +133,7 @@ const App = () => {
     //   }
     // }
 
-    console.log(axios);
+    // console.log(axios);
     // let url = `//example.com:8000/sender/`;
     // let payload = {
     //   template: template,
@@ -145,8 +165,12 @@ const App = () => {
         />
         <div>
           <button onClick={sendEmail}>Send Email</button>
-          <p className="hidden notification">Your message was sent</p>
         </div>
+        <ul className="notifications">
+          {notifications.map((notification, index) => 
+            <li key={index.toString()}>{notification}</li>
+          )}
+        </ul>
       </section>
       <section className="preview">
         <Previewer

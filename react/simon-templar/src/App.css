@@ -38,13 +38,9 @@
   text-align: center;
 }
 
-.app .notification {
+.app .notifications {
   font-weight: bold;
-  display: block;
-  text-align: center;
-}
-
-.app .hidden {
-  display:  none;
+  color: red;
+  list-style: none;
 }
 

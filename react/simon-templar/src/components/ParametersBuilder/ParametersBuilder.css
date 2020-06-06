@@ -46,13 +46,3 @@
     text-align: center;
 }
 
-.parameters-builder .notification {
-    font-weight: bold;
-    display: block;
-    text-align: center;
-}
-
-.parameters-builder .hidden {
-    display:  none;
-}
-
