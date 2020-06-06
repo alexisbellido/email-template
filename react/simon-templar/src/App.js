@@ -3,36 +3,26 @@ import axios from 'axios';
 
 import './App.css';
 
-import Builder from './components/Builder';
+import ParametersBuilder from './components/ParametersBuilder';
+import FieldsBuilder from './components/FieldsBuilder';
 import Previewer from './components/Previewer';
 
 const App = () => {
-
-  // TODO start with no fields
-  const [fields, setFields] = useState({
-    color: "",
-    planet: ""
-  });
-
-  // TODO array for dynamic inputs
-  const [dynamicFields, setDynamicFields] = useState([
-    {
-      id: "1",
-      fieldName: "animal",
-      fieldValue: "horse"
-    },
-    {
-      id: "2",
-      fieldName: "country",
-      fieldValue: "uruguay"
-    }
-  ]);
 
   const [parameters, setParameters] = useState({
     template: "Change me",
     sender: "",
     recipient: ""
   });
+
+  // initialize dynamic fields with an example
+  const [dynamicFields, setDynamicFields] = useState([
+    {
+      id: "1",
+      fieldName: "color",
+      fieldValue: "red"
+    }
+  ]);
 
   const addField = () => {
     // Add a field to array of dynamic fields.
@@ -77,33 +67,20 @@ const App = () => {
   };
 
   const handleChange = (e) => {
-    // Use setFields for input starting with "field-" and
-    // setParameters for template, sender and recipient.
-    const re = /(field-)(.*)/
-    const matches = e.target.name.match(re);
-    let name;
-    const value = e.target.value;
-    if (matches) {
-      name = matches[2];
-      setFields({
-        ...fields,
-        [name]: value
-      });
-    } else {
-      name = e.target.name;
-      setParameters({
-        ...parameters,
-        [name]: value
-      });
-    }
+    // set the parameters: template, sender and recipient.
+    setParameters({
+      ...parameters,
+      [e.target.name]: e.target.value
+    });
   };
 
   const sendEmail = e => {
+    e.preventDefault();
     console.log('sending email from App');
     console.log('parameters');
     console.log(parameters);
-    console.log('fields');
-    console.log(fields);
+    console.log('dynamicFields');
+    console.log(dynamicFields);
 
     // TODO import Axios and post JSON like this to http://localhost:8000/sender/
     // {
@@ -132,44 +109,27 @@ const App = () => {
     //   });
   };
 
-  // TODO make dynamicFields a component
   return (
-    <div className="App">
+    <div className="app">
       <h1>Simon Templar</h1>
-
-      <h2>Dynamic Fields</h2>
-      <button onClick={addField}>Add field</button>
-      {dynamicFields.map(field => {
-        return (
-          <div key={field.id}>
-            <span>{field.id}</span>
-            <input
-              type="text"
-              value={field.fieldName}
-              name="fieldName"
-              placeholder="field name"
-              onChange={(e) => handleFieldChange(field, e)}
-            />
-            <input
-              type="text"
-              value={field.fieldValue}
-              name="fieldValue"
-              placeholder="field value"
-              onChange={(e) => handleFieldChange(field, e)}
-            />
-            <button onClick={() => removeField(field)}>x</button>
-          </div>
-        );
-      })}
-      
-      <Builder
+      <ParametersBuilder
         handleChange={handleChange}
-        sendEmail={sendEmail}
         parameters={parameters}
-        fields={fields} />
+      />
+      <FieldsBuilder
+        addField={addField}
+        removeField={removeField}
+        handleFieldChange={handleFieldChange}
+        dynamicFields={dynamicFields}
+      />
       <Previewer
         template={parameters.template}
-        fields={fields} />
+        dynamicFields={dynamicFields}
+      />
+      <div>
+        <button onClick={sendEmail}>Send Email</button>
+        <p className="hidden notification">Your message was sent</p>
+      </div>
     </div>
   );
 }

@@ -1,14 +1,14 @@
-.builder {
+.parameters-builder {
     font-family: Arial, Verdana, Geneva, Tahoma, sans-serif;
     margin: 20px auto;
     color:#281d4c;
 }
 
-.builder div {
+.parameters-builder div {
     margin-bottom: 20px;
 }
 
-.builder label {
+.parameters-builder label {
     display: inline-block;
     font-size: 16px;
     width: 110px;
@@ -16,8 +16,8 @@
     vertical-align: top;
 }
 
-.builder input,
-.builder textarea {
+.parameters-builder input,
+.parameters-builder textarea {
     display: inline-block;
     width: 400px;
     text-align: left;
@@ -25,11 +25,11 @@
     padding: 5px;
 }
 
-.builder textarea {
+.parameters-builder textarea {
     height: 200px;
 }
 
-.builder button {
+.parameters-builder button {
     box-shadow:inset 0px 1px 0px 0px #54a3f7;
 	background:linear-gradient(to bottom, #007dc1 5%, #0061a7 100%);
 	background-color :#281d4c;
@@ -46,13 +46,13 @@
     text-align: center;
 }
 
-.builder .notification {
+.parameters-builder .notification {
     font-weight: bold;
     display: block;
     text-align: center;
 }
 
-.builder .hidden {
+.parameters-builder .hidden {
     display:  none;
 }
 
