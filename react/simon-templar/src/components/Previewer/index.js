@@ -1,18 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Previewer.css';
 import Handlebars from "handlebars";
 
-// TODO use Handlebars to get template and fields from state and process
-// with Handlebars and display
 const Previewer = (props) => {
-    // const template = Handlebars.compile(props.template);
-    // const rendered_template = template({name: "Mickey"});
-    // console.log(rendered_template);
-    let rendered_template = '';
+    const [renderedTemplate, setRenderedTemplate] = useState('');
+
+    const preview = (e) => {
+        e.preventDefault();
+        let context = {};
+        props.dynamicFields.forEach(field => {
+            context[field.fieldName] = field.fieldValue;
+        });
+        const template = Handlebars.compile(props.template);
+        setRenderedTemplate(template(context));
+    };
+
     return (
         <div className="previewer">
             <h2>Preview</h2>
-            <div>{rendered_template}</div>
+            <div className="rendered-template">{renderedTemplate}</div>
+            <div>
+                <button onClick={preview}>Preview</button>
+                <p className="hidden notification">Show preview issues here</p>
+            </div>
+
         </div>
     );
 }

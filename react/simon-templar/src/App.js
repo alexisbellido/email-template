@@ -10,7 +10,7 @@ import Previewer from './components/Previewer';
 const App = () => {
 
   const [parameters, setParameters] = useState({
-    template: "Change me",
+    template: "I like the color {{color}}",
     sender: "",
     recipient: ""
   });

@@ -20,6 +20,10 @@
 }
 
 .previewer div {
+    margin-bottom: 20px;
+}
+
+.previewer .rendered-template {
 	border: 1px solid #124d77;
     width: 600px;
     padding: 20px;

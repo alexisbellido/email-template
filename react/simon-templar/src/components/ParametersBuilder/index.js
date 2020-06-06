@@ -9,6 +9,7 @@ const ParametersBuilder = (props) => {
 
     return (
         <form className="parameters-builder">
+            <h2>Parameters</h2>
             <div>
                 <label>Sender</label>
                 <input type="text" name="sender" value={props.parameters.sender} onChange={handleChange} />
