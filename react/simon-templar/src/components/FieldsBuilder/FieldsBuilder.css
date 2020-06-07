@@ -41,14 +41,3 @@
     text-shadow: 0px 1px 0px #154682;
     text-align: center;
 }
-
-.fields-builder .notification {
-    font-weight: bold;
-    display: block;
-    text-align: center;
-}
-
-.fields-builder .hidden {
-    display:  none;
-}
-
