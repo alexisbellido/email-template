@@ -24,6 +24,10 @@
   padding: 10px;
 }
 
+.app .button-wrapper {
+  margin: 20px;
+}
+
 .app button {
   box-shadow:inset 0px 1px 0px 0px #54a3f7;
   background:linear-gradient(to bottom, #007dc1 5%, #0061a7 100%);
@@ -41,9 +45,17 @@
   text-align: center;
 }
 
-.app .notifications {
+.app .notifications p {
   font-weight: bold;
+  padding: 5px;
+  margin: 10px;
+  border: 1px solid #e2e2cd;
+  background-color: #f3f3ed;
+  color: #154682;
+  text-align: center;
+}
+
+.app .notifications p.alert {
   color: red;
-  list-style: none;
 }
 

@@ -113,13 +113,22 @@ const App = () => {
   const isValidPayload = () => {
     let notifications = [];
     if (!isValidEmail(parameters.sender)) {
-      notifications.push("Please enter a valid sender email address.");
+      notifications.push({
+        text: "Please enter a valid sender email address.",
+        type: "alert"
+      });
     }
     if (!isValidEmail(parameters.recipient)) {
-      notifications.push("Please enter a valid recipient email address.");
+      notifications.push({
+        text: "Please enter a valid recipient email address.",
+        type: "alert"
+      });
     }
     if (!parameters.template) {
-      notifications.push("Template empty. Please add one.");
+      notifications.push({
+        text: "Template empty. Please add one.",
+        type: "alert"
+      });
     }
     setNotifications(notifications);
     return !notifications.length;
@@ -145,8 +154,15 @@ const App = () => {
         .post(url, payload)
         .then(response => {
           if (response.status === 200) {
-            notifications.push("Success! I've sent your message.");
+            notifications.push({
+              text: "Success! I've sent your message.",
+              type: "message"
+            });
             setNotifications(notifications);
+            setTimeout(() => {
+              notifications = [];
+              setNotifications(notifications);
+            }, 3000);
           }
         })
         .catch(error => {
@@ -158,9 +174,8 @@ const App = () => {
   return (
     <div className="app">
       <h1>Simon Templar</h1>
-      <p>Enter the email addresses to use as the sender and the recipient; customize the template using <em>&#123;&#123;field&#125;&#125;</em> where you want to insert your fields; and add or remove fields and their corresponding values.</p>
-      <p>Verify the result on the preview panel to the right and once you are ready click <em>Send Email</em> at the bottom.</p>
       <section className="content">
+        <p>Enter the email addresses to use as the sender and the recipient; customize the template using <em>&#123;&#123;field&#125;&#125;</em> where you want to insert your fields; and add or remove fields and their corresponding values.</p>
         <ParametersBuilder
           handleChange={handleChange}
           parameters={parameters}
@@ -171,20 +186,21 @@ const App = () => {
           handleFieldChange={handleFieldChange}
           dynamicFields={dynamicFields}
         />
-        <div>
-          <button onClick={sendEmail}>Send Email</button>
-        </div>
-        <ul className="notifications">
-          {notifications.map((notification, index) => 
-            <li key={index.toString()}>{notification}</li>
-          )}
-        </ul>
       </section>
-      <section className="preview">
+      <section className="preview-send">
+        <p>Verify the result in the preview panel below and click <em>Send Email</em> at the bottom.</p>
         <Previewer
           preview={preview}
           renderedTemplate={renderedTemplate}
         />
+        <div className="button-wrapper">
+          <button onClick={sendEmail}>Send Email</button>
+        </div>
+        <div className="notifications">
+          {notifications.map((notification, index) => 
+            <p className={notification.type} key={index.toString()}>{notification.text}</p>
+          )}
+        </div>
       </section>
     </div>
   );
