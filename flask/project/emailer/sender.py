@@ -7,6 +7,7 @@ from emailer.helpers import send_email
 
 bp = Blueprint("sender", __name__, url_prefix="/sender")
 
+
 @bp.route('/', methods=['POST'])
 @cross_origin()
 def process():
@@ -17,5 +18,3 @@ def process():
             "success": True,
             "status_code": response.status_code
         }
-
-

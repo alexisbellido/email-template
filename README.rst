@@ -134,6 +134,8 @@ I have added a couple of simple tests for the backend. One to verify the POST ca
 
 I have not included tests for the frontend.
 
+The React app is validating the email fields using a basic regular expression (name@host.tld) that may not cover all the possible formats as described in RFC 2822 but should be good enough for this demonstration.
+
 TODO
 ---------------------------------------------
 

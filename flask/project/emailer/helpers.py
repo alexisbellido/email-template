@@ -7,8 +7,12 @@ def _send_email(api_key, sg_data):
     response = sg.client.mail.send.post(request_body=sg_data)
     return response
 
+
 def send_email(data, api_key):
-    rendered_template = render_template_string(data['template'], **data['fields'])
+    rendered_template = render_template_string(
+        data['template'],
+        **data['fields']
+    )
     sg_data = {
         "personalizations": [
             {

@@ -1,7 +1,6 @@
 import json
 import unittest
 from unittest.mock import patch
-from flask import Flask
 from emailer.helpers import send_email
 from emailer import create_app
 
