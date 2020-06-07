@@ -5,7 +5,7 @@ This is an application that allows using a template to send personalized emails.
 
 For demonstration purposes both Flask and React are running on development mode.
 
-As this is a simple demonstration I haven't built a more reusable CSS structure; I'm just importing one CSS file per each React component. For a bigger application I'd choose a more manageable approach. 
+As this is a simple demonstration I haven't built a more reusable CSS structure; I'm just importing one CSS file per each React component. For a bigger application I'd choose a more manageable approach.
 
 As the templates are simple, just variable replacements, and Jinja and Handlebars use the same approach for {{variable}} replacement, I am using Handlebars to render a preview on the frontend and save a call to the API.
 
