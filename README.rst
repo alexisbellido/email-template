@@ -130,6 +130,10 @@ As the templates are simple, just variable replacement, and Jinja and Handlebars
 
 As the frontend and the backend run on different origins (React in port 3000 and Flask in port 8000) I've used the Flask-CORS extension to allow all origins for the /sender/ API endpoint. On production I'd restrict this to work only with the origins we trust or. Clients that are not running from an allowed origin would need to write their own backend proxy and instruct their frontend applications to call our API from there.
 
+I have added a couple of simple tests for the backend. One to verify the POST call to the API endpoint is processing the payload and another that mocks the call to SendGrid, which may be unnecessary as the call to the endpoint also calls that function.
+
+I have not included tests for the frontend.
+
 TODO
 ---------------------------------------------
 
