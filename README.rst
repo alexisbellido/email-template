@@ -113,6 +113,12 @@ Installation
 
 4. Access the application at http://localhost:3000/.
 
+5. You can run the backend tests from the host while the backend container is running.
+
+.. code-block:: bash
+
+    $ docker exec -it email-template_backend_1 python tests.py
+
 Notes
 ---------------------------------------------
 
@@ -130,6 +136,7 @@ TODO
 - write backend tests
 - Remove old and unused code, including css and comments
 - deploy on thefelineuniverse.com and test? maybe not, probably a video with demo
+- rebuild and publish Python Docker image
 - write installation instructions including  docker exec bash and npm install for frontend before docker-compose up
 
 
