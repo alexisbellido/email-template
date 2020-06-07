@@ -32,20 +32,20 @@ Unless otherwise noted you should run all commands below from the root directory
 .. code-block:: bash
 
     $ mkdir -p flask/project/instance
-    $ copy flask/project/config-sample.py flask/project/instance/config.py
+    $ cp flask/project/config-sample.py flask/project/instance/config.py
 
 3. Change to the React application directory and run the frontend container with some volumes mapped to the host to install NodeJS packages.
 
 .. code-block:: bash
 
     $ cd react/simon-templar
-    $ docker run -it --rm --mount type=bind,source=$PWD,target=/root/simon-templar --mount type=bind,source=$PWD/node_modules,target=/root/simon-templar/node_modules,consistency=cached -w /root/simon-templar -p 3000:3000 node:14.4.0-stretch npm install
+    $ docker run -it --rm --mount type=bind,source=$PWD,target=/root/simon-templar -w /root/simon-templar -p 3000:3000 node:14.4.0-stretch npm install
 
 4. Go back to the root of the project and start Docker Compose.
 
 .. code-block:: bash
 
-    $ $ docker-compose up
+    $ docker-compose up
 
 5. Access the application at http://localhost:3000/.
 
@@ -95,6 +95,8 @@ Once the containers are running you can ssh into any of them.
 
 If you want to run commands and some tests you will need to map volumes, for example, with the frontend.
 
+Note the use of consistency=cached, which helps with performance on OSX. You may still want to run NodeJS commands from the host on development if OSX is too slow.
+
 .. code-block:: bash
 
     $ cd react/simon-templar
@@ -105,7 +107,3 @@ You can test with the following curl commands.
 .. code-block:: bash
 
     $ curl -X POST -H "Content-Type: application/json" -d '{"template": "Hello, I like the color {{color}} and I am from planet {{planet}}. My favorite animal is {{animal}}.", "sender": "sender@example.com", "recipient": "recipient@example.com", "fields": {"color": "blue", "planet": "pluto", "animal": "horse"}}' http://localhost:8000/sender/
-
-
-
-
